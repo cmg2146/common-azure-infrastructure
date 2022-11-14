@@ -16,10 +16,10 @@ steps:
   displayName: 'Deploy Dev Container Registry'
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: '$(azureServiceConnection)'
+    azureResourceManagerConnection: $(azureServiceConnection)
     action: 'Create Or Update Resource Group'
-    resourceGroupName: '$(resourceGroupName)'
-    location: '$(location)'
+    resourceGroupName: $(resourceGroupName)
+    location: $(location)
     csmFile: './container-registry.bicep'
     deploymentMode: 'Incremental'
-    deploymentName: 'DeployDevACR_$(buildNumber)'
+    deploymentName: DeployDevelopmentACR
