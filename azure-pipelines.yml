@@ -1,0 +1,25 @@
+trigger:
+- master
+
+name: $(Date:yyyy.MM.dd).$(Rev:r)
+
+variables:
+  azureServiceConnection: 'shared-connection'
+  resourceGroupName: 'shared'
+  location: 'eastus'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  displayName: 'Deploy Dev Container Registry'
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: '$(azureServiceConnection)'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '$(resourceGroupName)'
+    location: '$(location)'
+    csmFile: './container-registry.bicep'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployDevACR_$(buildNumber)'
