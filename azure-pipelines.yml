@@ -4,7 +4,7 @@ trigger:
 name: $(Date:yyyy.MM.dd).$(Rev:r)
 
 variables:
-  azureServiceConnection: 'shared-connection'
+  azureServiceConnection: 'sw-development-connection'
   resourceGroupName: 'shared'
   location: 'eastus'
 
