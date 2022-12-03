@@ -1,5 +1,12 @@
 trigger:
-- main
+  batch: true
+  branches:
+    include:
+    - main
+  paths:
+    exclude:
+    - README.md
+    - .vscode
 
 name: $(Date:yyyy.MM.dd).$(Rev:r)
 
