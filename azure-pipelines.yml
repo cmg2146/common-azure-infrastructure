@@ -11,9 +11,7 @@ trigger:
 name: $(Date:yyyy.MM.dd).$(Rev:r)
 
 variables:
-  azureServiceConnection: 'sw-development-connection'
-  resourceGroupName: 'shared'
-  location: 'eastus'
+- group: common-azure-infrastructure_Production
 
 pool:
   vmImage: ubuntu-latest
@@ -23,10 +21,13 @@ steps:
   displayName: 'Deploy Dev Container Registry'
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: $(azureServiceConnection)
+    azureResourceManagerConnection: $(AZURE_SERVICE_CONNECTION)
     action: 'Create Or Update Resource Group'
-    resourceGroupName: $(resourceGroupName)
-    location: $(location)
+    resourceGroupName: $(RESOURCE_GROUP_NAME)
+    location: $(RESOURCE_GROUP_LOCATION)
     csmFile: './container-registry.bicep'
+    overrideParameters: >
+      -registryName $(ACR_REGISTRY_NAME)
+      -registrySku $(ACR_REGISTRY_SKU)
     deploymentMode: 'Incremental'
     deploymentName: DeployDevelopmentACR
